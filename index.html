@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comment Cascade</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+    
+    @keyframes slideOut {
+      from {
+        transform: translate(-50%, -50%);
+      }
+      to {
+        transform: translate(-50%, -50%);
+      }
+    }
+    
+    .comment-card {
+      
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full flex flex-col overflow-hidden" style="background-color: #faf8f3;">
+   <header class="py-8">
+    <h1 id="pageTitle" class="text-5xl font-bold text-center" style="color: #311e10;">What Our Customers Say</h1>
+   </header>
+   <main id="commentContainer" class="relative flex-1 w-full"></main>
+  </div>
+  <script>
+    const defaultConfig = {
+      page_title: "What Our Customers Say",
+      background_color: "#faf8f3",
+      card_color: "#ffea94",
+      text_color: "#311e10",
+      accent_color: "#dd6031",
+      font_family: "system-ui, -apple-system, sans-serif",
+      font_size: 16
+    };
+
+    let config = { ...defaultConfig };
+
+    // Pre-existing comments list
+    const comments = [
+      {
+        commenter_name: "Sarah Mitchell",
+        comment_text: "Absolutely love this product! It exceeded all my expectations and the customer service was outstanding.",
+        date: "2024-01-15",
+        time: "14:30"
+      },
+      {
+        commenter_name: "James Rodriguez",
+        comment_text: "Best purchase I've made this year. Quality is top-notch and delivery was super fast!",
+        date: "2024-01-18",
+        time: "09:15"
+      },
+      {
+        commenter_name: "Emily Chen",
+        comment_text: "I've been using this for 3 months now and it's been a game changer. Highly recommend to everyone!",
+        date: "2024-01-20",
+        time: "16:45"
+      },
+      {
+        commenter_name: "Marcus Thompson",
+        comment_text: "Great value for money. The attention to detail is impressive and it works exactly as advertised.",
+        date: "2024-01-22",
+        time: "11:20"
+      },
+      {
+        commenter_name: "Olivia Santos",
+        comment_text: "Simply amazing! This has made my daily routine so much easier. Thank you for creating such a wonderful product!",
+        date: "2024-01-25",
+        time: "13:50"
+      }
+    ];
+
+    let currentCommentIndex = 0;
+
+    async function updateUIFromConfig(cfg) {
+      const customFont = cfg.font_family || defaultConfig.font_family;
+      const baseSize = cfg.font_size || defaultConfig.font_size;
+      const baseFontStack = 'system-ui, -apple-system, sans-serif';
+      
+      document.getElementById('app').style.backgroundColor = cfg.background_color || defaultConfig.background_color;
+      document.getElementById('pageTitle').style.color = cfg.text_color || defaultConfig.text_color;
+      document.getElementById('pageTitle').style.fontFamily = `${customFont}, ${baseFontStack}`;
+      document.getElementById('pageTitle').style.fontSize = `${baseSize * 2}px`;
+      document.getElementById('pageTitle').textContent = cfg.page_title || defaultConfig.page_title;
+      
+      // Update existing cards if any
+      document.querySelectorAll('.comment-card').forEach(card => {
+        card.style.backgroundColor = cfg.card_color || defaultConfig.card_color;
+        card.style.borderColor = cfg.accent_color || defaultConfig.accent_color;
+        card.querySelectorAll('.commenter-name').forEach(el => {
+          el.style.color = cfg.text_color || defaultConfig.text_color;
+          el.style.fontFamily = `${customFont}, ${baseFontStack}`;
+          el.style.fontSize = `${baseSize * 1.125}px`;
+        });
+        card.querySelectorAll('.comment-date').forEach(el => {
+          el.style.color = cfg.text_color || defaultConfig.text_color;
+          el.style.fontFamily = `${customFont}, ${baseFontStack}`;
+          el.style.fontSize = `${baseSize * 0.875}px`;
+        });
+        card.querySelectorAll('.comment-text').forEach(el => {
+          el.style.color = cfg.text_color || defaultConfig.text_color;
+          el.style.fontFamily = `${customFont}, ${baseFontStack}`;
+          el.style.fontSize = `${baseSize}px`;
+        });
+      });
+    }
+
+    function createCommentCard(comment) {
+      const card = document.createElement('div');
+      card.className = 'comment-card absolute p-5 rounded-xl shadow-2xl';
+      
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+      const baseFontStack = 'system-ui, -apple-system, sans-serif';
+      
+      card.style.backgroundColor = config.card_color || defaultConfig.card_color;
+      card.style.maxWidth = '450px';
+      card.style.minWidth = '350px';
+      card.style.border = `3px solid ${config.accent_color || defaultConfig.accent_color}`;
+      
+      card.innerHTML = `
+        <div class="mb-4">
+          <div class="commenter-name font-bold" style="color: ${config.text_color || defaultConfig.text_color}; font-family: ${customFont}, ${baseFontStack}; font-size: ${baseSize * 1.125}px;">${comment.commenter_name}</div>
+          <div class="comment-date" style="color: ${config.text_color || defaultConfig.text_color}; opacity: 0.6; font-family: ${customFont}, ${baseFontStack}; font-size: ${baseSize * 0.875}px;">${comment.date} at ${comment.time}</div>
+        </div>
+        <div class="comment-text leading-relaxed" style="color: ${config.text_color || defaultConfig.text_color}; font-family: ${customFont}, ${baseFontStack}; font-size: ${baseSize}px;">${comment.comment_text}</div>
+      `;
+      
+      return card;
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function nextComment() {
+      const c = comments[currentCommentIndex];
+      currentCommentIndex = (currentCommentIndex + 1) % comments.length;
+      return c;
+    }
+
+    function stackVertically(cards, centerY, gap = 24) {
+      const heights = cards.map(c => c.offsetHeight);
+      const totalHeight =
+        heights.reduce((a, b) => a + b, 0) + gap * (cards.length - 1);
+
+      let currentTop = centerY - totalHeight / 2;
+
+      cards.forEach((card, i) => {
+        card.style.top = `${currentTop + heights[i] / 2}px`;
+        card.style.left = '50%';
+        card.style.transform = 'translate(-50%, -50%)';
+        currentTop += heights[i] + gap;
+      });
+    }
+
+    function stackAlongArc(cards, centerX, centerY, gap = 12, arcRadius = 600) {
+      const heights = cards.map(c => c.offsetHeight);
+      const totalHeight =
+        heights.reduce((a, b) => a + b, 0) + gap * (cards.length - 1);
+
+      let currentY = centerY - totalHeight / 2;
+
+      cards.forEach((card, i) => {
+        const cardCenterY = currentY + heights[i] / 2;
+        const dy = cardCenterY - centerY;
+
+        // Circle equation: x = r - sqrt(r² - y²)
+        const dx = arcRadius - Math.sqrt(Math.max(0, arcRadius ** 2 - dy ** 2));
+
+        card.style.left = `${centerX + dx}px`;
+        card.style.top = `${cardCenterY}px`;
+        card.style.transform = 'translate(-50%, -50%)';
+        
+        currentY += heights[i] + gap;
+      });
+    }
+
+    async function startCascadeAnimation() {
+      const container = document.getElementById('commentContainer');
+
+      const centerX = container.clientWidth / 2;
+      const centerY = container.clientHeight / 2;
+
+      const totalCards = 270;
+      const cardsToReachMaxSpeed = 12;
+      const cardsToReachMaxHeight = 12;
+      const maxOffsetY = container.clientHeight * 0.35; // max vertical chaos
+      const maxRotation = 30; // degrees
+      const baseDelay = 600; // first card(s) slow
+      const minDelay = 40;    // fastest final speed
+
+      const cards = []; // keep track of cards for fading
+
+      for (let i = 0; i < totalCards; i++) {
+        // --------- Crescendo delay ----------
+        let delay;
+        if (i < 2) {
+          delay = baseDelay;
+        } else {
+          const t = (i - 2) / (cardsToReachMaxSpeed - 3);
+          delay = Math.max(baseDelay - (baseDelay - minDelay) * (t * t), minDelay);
+        }
+        await sleep(delay);
+
+        const card = createCommentCard(nextComment());
+
+        // --------- Vertical chaotic positioning ----------
+        // Early cards: small vertical offset; later cards: larger
+        const rem = i % cardsToReachMaxSpeed;
+        const tOffset = rem / cardsToReachMaxHeight;
+        const offsetY = (Math.random() - 0.5) * maxOffsetY * tOffset * 2; // ± maxOffsetY scaled by tOffset
+
+        // --------- Random rotation ----------
+        const rotation = (Math.random() - 0.5) * 2 * maxRotation * tOffset;
+
+        card.style.left = `${centerX}px`;
+        card.style.top = `${centerY + offsetY}px`;
+        card.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        card.style.zIndex = 100 + i;
+
+        container.appendChild(card);
+        cards.push(card);
+      }
+
+      // --------- Show last comment perfectly centered ----------
+      const lastCard = createCommentCard(nextComment());
+      lastCard.style.left = `${centerX}px`;
+      lastCard.style.top = `${centerY}px`;
+      lastCard.style.transform = `translate(-50%, -50%) rotate(0deg)`;
+      lastCard.style.zIndex = 1000; // always on top
+      container.appendChild(lastCard);
+
+      // --------- Fade out previous cards gradually ----------
+      cards.forEach((c, idx) => {
+        setTimeout(() => {
+          c.style.transition = 'opacity 1s ease-out';
+          c.style.opacity = 0;
+        }, idx * 10); // slight stagger
+      });
+
+      // Hold last card a bit longer, then fade
+      await sleep(2000);
+      lastCard.style.transition = 'opacity 1s ease-out';
+      lastCard.style.opacity = 0;
+
+      await sleep(1200);
+      container.innerHTML = '';
+
+      // Restart cascade
+      await sleep(500);
+      startCascadeAnimation();
+    }
+
+
+    async function startCascadeAnimationSpiral() {
+      const container = document.getElementById('commentContainer');
+
+      const centerX = container.clientWidth / 2;
+      const centerY = container.clientHeight / 2;
+
+      const totalCards = 270;
+      const cardsToReachMaxSpeed = 12;
+      const radiusEasing = 12;
+      const maxRadius = Math.min(container.clientWidth, container.clientHeight) * 0.45;
+
+      const angleStep = Math.PI / 5;
+
+      for (let i = 0; i < totalCards; i++) {
+        // Delay: first two cards are readable, after that much faster
+        let delay;
+        if (i < 2) {
+          delay = 1200; // first two cards are slow
+        } else {
+          const t = (i - 2) / (cardsToReachMaxSpeed - 3); // normalize after first 2
+          const baseDelay = 600;   // starting fast delay after card 2
+          const minDelay = 40;     // fastest final delay
+          delay = Math.max(baseDelay - (baseDelay - minDelay) * (t * t), minDelay); // accelerate faster
+        }
+        await sleep(delay);
+
+        // Radius easing (spiral expands gradually)
+        const tRadius = i / (radiusEasing - 1);
+        const radius = Math.min(maxRadius * Math.pow(tRadius, 1.3), maxRadius);
+
+        // Spiral angle
+        const angle = i * angleStep;
+
+        // Rotation chaos grows over time
+        const rotation = Math.min(Math.max((Math.random() - 0.5) * (10 + tRadius * 40), -30), 30);
+        console.log(rotation);
+
+        const card = createCommentCard(nextComment());
+        card.style.left = `${centerX + Math.cos(angle) * radius}px`;
+        card.style.top  = `${centerY + Math.sin(angle) * radius}px`;
+        card.style.transform = `translate(-50%, -50%) rotate(${rotation}deg)`;
+        card.style.zIndex = 100 + i;
+
+        container.appendChild(card);
+      }
+
+      // Hold for reading
+      await sleep(3000);
+
+      // Clear and restart
+      container.innerHTML = '';
+      await sleep(1000);
+      startCascadeAnimation();
+    }
+
+
+
+
+    async function startCascadeAnimationOld() {
+      const container = document.getElementById('commentContainer');
+
+      /* ---------------- Phase 1: Single centered comment ---------------- */
+
+      const centerX = container.clientWidth / 2;
+      const centerY = container.clientHeight / 2;
+
+      const card1 = createCommentCard(nextComment());
+      card1.style.left = `${centerX + 12}px`;
+      card1.style.top = `${centerY - 8}px`;
+      card1.style.transform = 'translate(-50%, -50%) rotate(2deg)';
+      card1.style.zIndex = '100';
+      container.appendChild(card1);
+
+      card1.animate(
+        [
+          { transform: 'translate(-50%, -50%) rotate(2deg)' },
+          { transform: 'translate(-48%, -52%) rotate(-1deg)' }
+        ],
+        { duration: 3000, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' }
+      );
+
+      await sleep(2000);
+
+      /* ---------------- Phase 2: Split into 2 vertically ---------------- */
+      const orbitRadius = 60;
+
+      card1.style.left = `${centerX + Math.cos(0) * orbitRadius}px`;
+      card1.style.top  = `${centerY + Math.sin(0) * orbitRadius}px`;
+
+      const card2 = createCommentCard(nextComment());
+      card2.style.left = `${centerX + Math.cos(Math.PI) * orbitRadius}px`;
+      card2.style.top  = `${centerY + Math.sin(Math.PI) * orbitRadius}px`;
+      card2.style.transform = 'translate(-50%, -50%) rotate(-3deg)';
+      card2.style.zIndex = '99';
+
+      container.appendChild(card2);
+
+      await sleep(2000);
+
+      /* ---------------- Phase 3: 4-card arc stack ---------------- */
+
+      const cards = [card1, card2];
+
+      const card3 = createCommentCard(nextComment());
+      const card4 = createCommentCard(nextComment());
+
+      container.appendChild(card3);
+      container.appendChild(card4);
+
+      cards.push(card3, card4);
+
+      // Allow DOM to measure heights
+      await sleep(50);
+
+      stackAlongArc(cards, centerX, centerY, 12, 700);
+
+      card1.style.zIndex = '97';
+      card2.style.zIndex = '96';
+      card3.style.zIndex = '95';
+      card4.style.zIndex = '94';
+
+      await sleep(1500);
+
+
+      /* ---------------- Phase 4: Spiral chaos with easing ---------------- */
+
+      const totalCards = 16;
+      const maxRadius = Math.min(container.clientWidth, container.clientHeight) * 0.4;
+
+      // Spiral parameters
+      const angleStep = Math.PI / 4; // controls tightness of spiral
+      const baseDelay = 320;        // starting delay (slow)
+      const minDelay = 80;          // ending delay (fast)
+
+      for (let i = 0; i < totalCards; i++) {
+        // Easing: delay shrinks over time
+        const t = i / (totalCards - 1);
+        const delay = baseDelay - (baseDelay - minDelay) * (t * t); // ease-in
+        await sleep(delay);
+
+        // Spiral math
+        const angle = i * angleStep;
+        const radius = t * maxRadius;
+
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+
+        const rotate = (Math.random() - 0.5) * 30;
+
+        const card = createCommentCard(nextComment());
+        card.style.left = `${x}px`;
+        card.style.top = `${y}px`;
+        card.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
+        card.style.zIndex = 110 + i;
+
+        container.appendChild(card);
+      }
+
+
+
+      /* ---------------- Phase 5: Hold, clear, restart ---------------- */
+      await sleep(3000);
+      container.innerHTML = '';
+      await sleep(1000);
+      startCascadeAnimation();
+    }
+
+    async function init() {
+      if (window.elementSdk) {
+        await window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: updateUIFromConfig,
+          mapToCapabilities: (cfg) => ({
+            recolorables: [
+              {
+                get: () => cfg.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  cfg.background_color = value;
+                  window.elementSdk.setConfig({ background_color: value });
+                }
+              },
+              {
+                get: () => cfg.card_color || defaultConfig.card_color,
+                set: (value) => {
+                  cfg.card_color = value;
+                  window.elementSdk.setConfig({ card_color: value });
+                }
+              },
+              {
+                get: () => cfg.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  cfg.text_color = value;
+                  window.elementSdk.setConfig({ text_color: value });
+                }
+              },
+              {
+                get: () => cfg.accent_color || defaultConfig.accent_color,
+                set: (value) => {
+                  cfg.accent_color = value;
+                  window.elementSdk.setConfig({ accent_color: value });
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => cfg.font_family || defaultConfig.font_family,
+              set: (value) => {
+                cfg.font_family = value;
+                window.elementSdk.setConfig({ font_family: value });
+              }
+            },
+            fontSizeable: {
+              get: () => cfg.font_size || defaultConfig.font_size,
+              set: (value) => {
+                cfg.font_size = value;
+                window.elementSdk.setConfig({ font_size: value });
+              }
+            }
+          }),
+          mapToEditPanelValues: (cfg) => new Map([
+            ["page_title", cfg.page_title || defaultConfig.page_title]
+          ])
+        });
+
+        config = window.elementSdk.config || defaultConfig;
+        await updateUIFromConfig(config);
+      }
+      
+      // Start the cascade animation automatically
+      startCascadeAnimation();
+    }
+
+    init();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b07fd3fd5f8527d',t:'MTc2NjE1ODczMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
