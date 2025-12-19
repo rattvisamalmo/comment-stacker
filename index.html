@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" class="h-full">
  <head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comment Cascade</title>
@@ -40,6 +41,24 @@
  </head>
  <body class="h-full">
   <div id="app" class="w-full h-full flex flex-col overflow-hidden" style="background-color: #faf8f3;">
+    <div id="commentCounter" 
+         class="absolute w-full flex justify-center items-center"
+          style="
+            bottom:0;
+            height:20%;
+            font-family:'Poppins', sans-serif;
+            font-size:6rem;
+            font-weight:700;
+            color:white;
+            -webkit-text-stroke: 2px black;
+            text-stroke: 2px black;
+            pointer-events:none;
+            z-index:9999;
+            display:none;
+          ">
+      0
+    </div>
+
    <main id="commentContainer" class="relative flex-1 w-full"></main>
   </div>
   <script>
@@ -56,38 +75,1622 @@
     let config = { ...defaultConfig };
 
     // Pre-existing comments list
-    const comments = [
+    const comments = ([
       {
-        commenter_name: "Sarah Mitchell",
-        comment_text: "Absolutely love this product! It exceeded all my expectations and the customer service was outstanding.",
-        date: "2024-01-15",
-        time: "14:30"
+        commenter_name: "Tahera",
+        comment_text: "Det är ett bra initiativ, long overdue,  att stoppa brott mot mänskliga rättigheter  och likavärde för alla människor. ",
+        date: "2025-12-14",
+        time: "15:20"
       },
       {
-        commenter_name: "James Rodriguez",
-        comment_text: "Best purchase I've made this year. Quality is top-notch and delivery was super fast!",
-        date: "2024-01-18",
-        time: "09:15"
+        commenter_name: "Carina ",
+        comment_text: "Sluta stötta dem som är involverade i att våldföra sig på människor och börja på allvar stötta mänskliga rättigheter i alla sammanhang. Finansiera inte krigsbrott och folkmord.",
+        date: "2025-12-13",
+        time: "06:39"
       },
       {
-        commenter_name: "Emily Chen",
-        comment_text: "I've been using this for 3 months now and it's been a game changer. Highly recommend to everyone!",
-        date: "2024-01-20",
+        commenter_name: "Per-Olof",
+        comment_text: "Leve de mänskliga rättigheterna",
+        date: "2025-12-12",
+        time: "12:51"
+      },
+      {
+        commenter_name: "Linus ",
+        comment_text: "Otroligt viktigt ",
+        date: "2025-12-11",
+        time: "20:57"
+      },
+      {
+        commenter_name: "Rafiq Blomqvist Albaida ",
+        comment_text: "Nu räcker det!!!",
+        date: "2025-12-10",
+        time: "23:23"
+      },
+      {
+        commenter_name: "Katarzyna Wiatrowska ",
+        comment_text: "Stöttar initiativet fullt ut. Regionen bör göra detsamma.",
+        date: "2025-12-10",
+        time: "21:36"
+      },
+      {
+        commenter_name: "Mona",
+        comment_text: "Hej",
+        date: "2025-12-10",
+        time: "15:54"
+      },
+      {
+        commenter_name: "Sanna",
+        comment_text: "Det här förslaget borde ju redan vara implementerat som en självklarhet ",
+        date: "2025-12-09",
+        time: "21:27"
+      },
+      {
+        commenter_name: "Johanna",
+        comment_text: "Bästa förslaget!!",
+        date: "2025-12-09",
+        time: "19:06"
+      },
+      {
+        commenter_name: "Peter",
+        comment_text: "Fantastiskt bra förslag och det vore verkligen bra om kommunen inte handlar med företag som tjänar på krigsbrott. Oavsett vilka länder det handlar om",
+        date: "2025-12-08",
+        time: "21:53"
+      },
+      {
+        commenter_name: "Alex Fuentes",
+        comment_text: "Våra gemensamma skattepengar ska användas för rätt ändamål",
+        date: "2025-12-07",
+        time: "23:45"
+      },
+      {
+        commenter_name: "Samia Aloui",
+        comment_text: "Mina skattepengar ska inte finansiera folkmord. ",
+        date: "2025-12-07",
+        time: "19:07"
+      },
+      {
+        commenter_name: "Fida",
+        comment_text: "Malmö stad måste stå för mänskliga rättigheter i Palestina. ",
+        date: "2025-12-07",
+        time: "14:01"
+      },
+      {
+        commenter_name: "Adi",
+        comment_text: "Nej till krigsbrott ",
+        date: "2025-12-07",
+        time: "13:50"
+      },
+      {
+        commenter_name: "Montaser ",
+        comment_text: "Nej till att mina pengar stödjer krigsbrott ",
+        date: "2025-12-07",
+        time: "13:49"
+      },
+      {
+        commenter_name: "Ellen",
+        comment_text: "Viktigt! ",
+        date: "2025-12-03",
+        time: "07:49"
+      },
+      {
+        commenter_name: "Yomn",
+        comment_text: "Jag stödjer kampanjen rättvisamalmö och deras medborgareförslag, Malmö stad måste stå för bojkott av apartheid israel.",
+        date: "2025-12-05",
+        time: "08:42"
+      },
+      {
+        commenter_name: "Ipshita",
+        comment_text: "Inga skattepengar till företag som finansierar grova människorättskränkning!",
+        date: "2025-12-03",
+        time: "10:41"
+      },
+      {
+        commenter_name: "Dajma",
+        comment_text: "Tack till Rättvisa Malmö för det här initiativet, Malmö och hela Sverige måste sluta handla med en mördare ockupation ",
+        date: "2025-12-02",
+        time: "01:14"
+      },
+      {
+        commenter_name: "Sandra ",
+        comment_text: "Det här är verkligen helt absurt. Självklart ska våra pengar inte går till människorättsbrott.",
+        date: "2025-12-01",
+        time: "20:38"
+      },
+      {
+        commenter_name: "Sluta bidra till andra folks lidande tack!",
+        comment_text: "Taha",
+        date: "2025-12-01",
+        time: "19:53"
+      },
+      {
+        commenter_name: "Pernilla Hydén",
+        comment_text: "Tack för att ni belyser detta! ",
+        date: "2025-12-01",
+        time: "12:47"
+      },
+      {
+        commenter_name: "Malin",
+        comment_text: "Självklart ska Malmö stad sluta handla med företag inblandade i människorättsbrott",
+        date: "2025-11-26",
+        time: "07:49"
+      },
+      {
+        commenter_name: "Mohamed ",
+        comment_text: "Självklart ska Malmö stad sluta handla med företag inblandade i människorättsbrott.",
+        date: "2025-11-17",
+        time: "03:48"
+      },
+      {
+        commenter_name: "Katarina ",
+        comment_text: "Tack till Rättvisa Malmö som lyfter detta! ",
+        date: "2025-11-16",
+        time: "13:15"
+      },
+      {
+        commenter_name: "Lone",
+        comment_text: "Nej till oetiska formuleringar!",
+        date: "2025-11-13",
+        time: "11:07"
+      },
+      {
+        commenter_name: "Helena",
+        comment_text: "Tack för att Malmö stad sluta handla med företag inblandade i människorättsbrott.",
+        date: "2025-11-07",
+        time: "13:21"
+      },
+      {
+        commenter_name: "Abbas",
+        comment_text: "Pengar en till rätt plats",
+        date: "2025-11-04",
+        time: "19:08"
+      },
+      {
+        commenter_name: "Mithak ",
+        comment_text: "Det räcker nu!!",
+        date: "2025-11-04",
+        time: "19:00"
+      },
+      {
+        commenter_name: "Ahmad",
+        comment_text: "Blev djupt besviken över hur Malmö stad hanterade Eurovision. Det är inte värdigt den staden som jag lärt mig älska. Tur att vi är så många Malmöbor som känner likadant :-) Här är en ny chans för Malmös beslutsfattare - gör nu det som är uppenbart rätt!",
+        date: "2025-10-31",
+        time: "18:45"
+      },
+      {
+        commenter_name: "Mohammed",
+        comment_text: "Malmö säger nej till folkmord!",
+        date: "2025-10-31",
+        time: "02:34"
+      },
+      {
+        commenter_name: "Cecilia",
+        comment_text: "Inga skattepengar till företag som finansierar grova människorättskränkningR",
+        date: "2025-10-27",
+        time: "21:31"
+      },
+      {
+        commenter_name: "Nadine",
+        comment_text: "Mina skattepengar ska aldrig gå till att finansiera ett folkmord. ",
+        date: "2025-10-24",
+        time: "16:00"
+      },
+      {
+        commenter_name: "Emma",
+        comment_text: "Självklart ska Malmö stad sluta handla med företag inblandade i människorättsbrott.",
+        date: "2025-10-21",
+        time: "07:31"
+      },
+      {
+        commenter_name: "Mariam ",
+        comment_text: "Tack",
+        date: "2025-10-18",
+        time: "15:07"
+      },
+      {
+        commenter_name: "Boel",
+        comment_text: "🤩",
+        date: "2025-10-18",
+        time: "13:48"
+      },
+      {
+        commenter_name: "Moa",
+        comment_text: "Malmö måste ta ansvar!",
+        date: "2025-10-17",
+        time: "06:29"
+      },
+      {
+        commenter_name: "Melad",
+        comment_text: "Tillsammans gör vi skillnad",
+        date: "2025-10-16",
+        time: "17:39"
+      },
+      {
+        commenter_name: "Gunnel",
+        comment_text: "Självklart att skattepengar inte ska stödja folkmord och företag som handlar med företag/länder som bryter mot folkrätten. ",
+        date: "2025-10-12",
+        time: "20:13"
+      },
+      {
+        commenter_name: "SARA",
+        comment_text: "Denna åtgärd måste stödjas!!",
+        date: "2025-10-12",
+        time: "16:11"
+      },
+      {
+        commenter_name: "Helena",
+        comment_text: "Pinsamt och skamligt för Malmö stad och alla inblandade",
+        date: "2025-10-12",
+        time: "15:07"
+      },
+      {
+        commenter_name: "Ivar",
+        comment_text: "Sanktionera Israel",
+        date: "2025-10-12",
+        time: "15:05"
+      },
+      {
+        commenter_name: "Sonya",
+        comment_text: "Fred Palestina!",
+        date: "2025-10-12",
+        time: "15:04"
+      },
+      {
+        commenter_name: "Neera",
+        comment_text: "Mina skattepengar ska INTE användas för folkmord!",
+        date: "2025-10-12",
+        time: "14:38"
+      },
+      {
+        commenter_name: "Johanna",
+        comment_text: "Malmö måste ta ansvar",
+        date: "2025-10-12",
+        time: "14:37"
+      },
+      {
+        commenter_name: "Hannah",
+        comment_text: "MALMÖ sluta handla med företag inblandade i människorättsbrott. Stå upp för mänsklig rättighet",
+        date: "2025-10-12",
+        time: "14:34"
+      },
+      {
+        commenter_name: "Ervin",
+        comment_text: "Inte mina pengar ska supporta folkmord!",
+        date: "2025-10-12",
+        time: "14:24"
+      },
+      {
+        commenter_name: "Björn C ",
+        comment_text: "Väldigt rimliga direktiv för Malmö stad att förhålla sig till. ",
+        date: "2025-10-11",
+        time: "19:08"
+      },
+      {
+        commenter_name: "Fatme ",
+        comment_text: "Free Gaza alla barn har rätt till ett liv",
+        date: "2025-10-10",
+        time: "07:15"
+      },
+      {
+        commenter_name: "Eva",
+        comment_text: "Mänskliga rättigheter ska vara universella ",
+        date: "2025-10-09",
+        time: "14:17"
+      },
+      {
+        commenter_name: "Inez ",
+        comment_text: "Jag vill inte att våra skattepengar går till en ockupationsmakt ",
+        date: "2025-10-09",
+        time: "11:48"
+      },
+      {
+        commenter_name: "Cim",
+        comment_text: "För en etisk upphandlingspolicy!",
+        date: "2025-10-08",
+        time: "10:44"
+      },
+      {
+        commenter_name: "Amanda",
+        comment_text: "Det är viktigt att Malmö Stad står upp för mänskliga rättigheter.",
+        date: "2025-10-08",
+        time: "06:06"
+      },
+      {
+        commenter_name: "Olivia",
+        comment_text: "Malmö stad, lyssna på era invånare och ta ansvar",
+        date: "2025-10-07",
+        time: "17:46"
+      },
+      {
+        commenter_name: "Alle",
+        comment_text: "Malmö stad, ta ansvar eller få folket emot er!",
+        date: "2025-10-07",
+        time: "08:45"
+      },
+      {
+        commenter_name: "Claudia",
+        comment_text: "Det enda rätta. Mina skattepengar ska fan heller stötta ett folkmord.",
+        date: "2025-10-06",
+        time: "23:30"
+      },
+      {
+        commenter_name: "Nomi",
+        comment_text: "När blev det okej att finansiera ett folkmord??",
+        date: "2025-10-06",
+        time: "20:56"
+      },
+      {
+        commenter_name: "Amen",
+        comment_text: "Jag vill inte betala för brott mot mänskligheten!",
+        date: "2025-10-06",
+        time: "01:22"
+      },
+      {
+        commenter_name: "Lucia ",
+        comment_text: "Nej till folkmord!",
+        date: "2025-10-05",
+        time: "20:02"
+      },
+      {
+        commenter_name: "Vega",
+        comment_text: "Snälla låt oss vara människor.",
+        date: "2025-10-05",
+        time: "16:57"
+      },
+      {
+        commenter_name: "Joma",
+        comment_text: "Nej",
+        date: "2025-10-05",
+        time: "14:15"
+      },
+      {
+        commenter_name: "M",
+        comment_text: "!",
+        date: "2025-10-05",
+        time: "13:44"
+      },
+      {
+        commenter_name: "Leticia",
+        comment_text: "Nej till folkmord ",
+        date: "2025-10-04",
+        time: "19:35"
+      },
+      {
+        commenter_name: "Hasna",
+        comment_text: "nej till folkmord ",
+        date: "2025-10-04",
+        time: "00:04"
+      },
+      {
+        commenter_name: "Jb",
+        comment_text: "Självklart en röst emot folkmord!!",
+        date: "2025-10-03",
+        time: "22:25"
+      },
+      {
+        commenter_name: "Emma",
+        comment_text: "!",
+        date: "2025-10-02",
+        time: "19:25"
+      },
+      {
+        commenter_name: "Mira",
+        comment_text: "Etisk användning av våra pengar är ett måste",
+        date: "2025-10-02",
+        time: "09:59"
+      },
+      {
+        commenter_name: "Zahrisss",
+        comment_text: "From the river to the sea👏",
+        date: "2025-10-01",
+        time: "22:22"
+      },
+      {
+        commenter_name: "Awa",
+        comment_text: "Våra skattepengar ska inte gå till finansieringen av människorättsbrott!",
+        date: "2025-10-01",
+        time: "21:26"
+      },
+      {
+        commenter_name: "Alice",
+        comment_text: "Självklart ska vårt Malmö inte bidra till grova människorättskränkningar!!",
+        date: "2025-10-01",
+        time: "18:26"
+      },
+      {
+        commenter_name: "Abbe ",
+        comment_text: "Nej till folkmord",
+        date: "2025-10-01",
+        time: "13:34"
+      },
+      {
+        commenter_name: "Albin Lundholm",
+        comment_text: "Viktigt",
+        date: "2025-10-01",
+        time: "11:09"
+      },
+      {
+        commenter_name: "Alva",
+        comment_text: "stoppa folkmord!",
+        date: "2025-10-01",
+        time: "10:25"
+      },
+      {
+        commenter_name: "Matías Federico",
+        comment_text: "Nonse puede ser neutral sin ser complice de los poderosos ",
+        date: "2025-10-01",
+        time: "08:00"
+      },
+      {
+        commenter_name: "Elin",
+        comment_text: "Ta ställning mot folkmord!",
+        date: "2025-09-30",
+        time: "23:54"
+      },
+      {
+        commenter_name: "Klara",
+        comment_text: "Nejjj till folkmord",
+        date: "2025-09-30",
+        time: "22:26"
+      },
+      {
+        commenter_name: "Lis dos Santos ",
+        comment_text: "Fantastisk jobb ni gör! Free Palestine 🇵🇸♥️",
+        date: "2025-09-30",
+        time: "22:23"
+      },
+      {
+        commenter_name: "Klara",
+        comment_text: "Nej till folkmord",
+        date: "2025-09-30",
+        time: "21:53"
+      },
+      {
+        commenter_name: "Almin ",
+        comment_text: "Nej till folkmord! ",
+        date: "2025-09-30",
+        time: "21:44"
+      },
+      {
+        commenter_name: "Simone",
+        comment_text: "Nej till folkmord. ",
+        date: "2025-09-30",
+        time: "21:36"
+      },
+      {
+        commenter_name: "Azra",
+        comment_text: "Nej till folkmord!",
+        date: "2025-09-30",
+        time: "21:24"
+      },
+      {
+        commenter_name: "Elina",
+        comment_text: "Vi står för mänskliga rättigheter!",
+        date: "2025-09-30",
+        time: "21:13"
+      },
+      {
+        commenter_name: "Linus",
+        comment_text: "Jag stödjer denna aktion!",
+        date: "2025-09-30",
+        time: "21:10"
+      },
+      {
+        commenter_name: "Mona",
+        comment_text: "🙌🏻🙌🏻🙌🏻",
+        date: "2025-09-30",
+        time: "18:37"
+      },
+      {
+        commenter_name: "Karin Auran Frankenstein",
+        comment_text: "Jag ställer mig bakom initiativet.",
+        date: "2025-09-30",
+        time: "17:26"
+      },
+      {
+        commenter_name: "Alice ",
+        comment_text: "Nej till folkmord! ",
+        date: "2025-09-30",
+        time: "16:15"
+      },
+      {
+        commenter_name: "Abdul",
+        comment_text: "Bojkotta företag som stöttar folkmord, bryter mot mänskliga rättigheter, barnens rätt till att leva ",
+        date: "2025-09-30",
+        time: "14:46"
+      },
+      {
+        commenter_name: "Edin ",
+        comment_text: "Nej till folkmordssponsring",
+        date: "2025-09-30",
+        time: "13:07"
+      },
+      {
+        commenter_name: "Valley Ghanem ",
+        comment_text: "Palestinier från Gaza och Malmöbo säger NEJ till upphandling av folkmord ",
+        date: "2025-09-30",
+        time: "12:35"
+      },
+      {
+        commenter_name: "Cecilia ",
+        comment_text: "Jag är nöjd med den här initiativen.",
+        date: "2025-09-30",
+        time: "08:29"
+      },
+      {
+        commenter_name: "Myrtel",
+        comment_text: "Nej till att stödja folkmord!",
+        date: "2025-09-28",
+        time: "08:45"
+      },
+      {
+        commenter_name: "Tani",
+        comment_text: "Antingen så tar man ställning EMOT eller så är man medskyldig. Det finns ingen neutral ställning i ett pågående folkmord.",
+        date: "2025-09-27",
+        time: "13:12"
+      },
+      {
+        commenter_name: "J.S. ",
+        comment_text: "No to Genocide",
+        date: "2025-09-27",
+        time: "12:34"
+      },
+      {
+        commenter_name: "Manal",
+        comment_text: "Sluta stödja folkmord med mina pengar.",
+        date: "2025-09-27",
+        time: "10:08"
+      },
+      {
+        commenter_name: "Kajsa",
+        comment_text: "Nej till folkmord!!!!",
+        date: "2025-09-26",
+        time: "23:48"
+      },
+      {
+        commenter_name: "Nadine Quaing",
+        comment_text: "As it should!!!!",
+        date: "2025-09-26",
+        time: "23:47"
+      },
+      {
+        commenter_name: "Defne",
+        comment_text: "Jag röster ",
+        date: "2025-09-26",
+        time: "23:47"
+      },
+      {
+        commenter_name: "Måns ",
+        comment_text: "Såklart: ",
+        date: "2025-09-26",
+        time: "23:47"
+      },
+      {
+        commenter_name: "Lea Hughes",
+        comment_text: "Malmö stad ska inte sponsra folkmord.",
+        date: "2025-09-26",
+        time: "23:40"
+      },
+      {
+        commenter_name: "Linda",
+        comment_text: "Etisk användning av våra pengar är ett måste.",
+        date: "2025-09-26",
+        time: "10:25"
+      },
+      {
+        commenter_name: "Arvid Gudmundsson ",
+        comment_text: "Vår regering tar inte ställning mot folkmord. Malmö stad kan göra det! ",
+        date: "2025-09-25",
+        time: "15:10"
+      },
+      {
+        commenter_name: "Samia Aloui",
+        comment_text: "Malmö Kommun har ett moraliskt och juridiskt ansvar att se till att offentliga medel inte bidrar till grova rättighetskränkningar. Stop sponsra genocide. ",
+        date: "2025-09-25",
+        time: "04:10"
+      },
+      {
+        commenter_name: "Samia Aloui",
+        comment_text: "Malmö säger nej till folkmord och till folkmords stöttare. ",
+        date: "2025-09-25",
+        time: "04:06"
+      },
+      {
+        commenter_name: "Samia Aloui",
+        comment_text: "Nej till sponsring av folkmord",
+        date: "2025-09-25",
+        time: "04:04"
+      },
+      {
+        commenter_name: "Monica W",
+        comment_text: "Mina pengar ska inte gå till folkmord ",
+        date: "2025-09-24",
+        time: "22:48"
+      },
+      {
+        commenter_name: "Idriss ",
+        comment_text: "Nej till folkmord ",
+        date: "2025-09-23",
+        time: "19:21"
+      },
+      {
+        commenter_name: "Murtadha Aljubouri ",
+        comment_text: "Jag vill inte att mina pengar går till något som stödjer folkmord",
+        date: "2025-09-22",
+        time: "23:30"
+      },
+      {
+        commenter_name: "Johan",
+        comment_text: "Handla inte med företag som är inblandade i grova och allvarliga kränkningar av mänskliga rättigheter, inklusive krigsförbrytelser och brott mot mänskligheten.",
+        date: "2025-09-22",
+        time: "16:07"
+      },
+      {
+        commenter_name: "Azra",
+        comment_text: "Inte en krona till människorättsbrott!!!",
+        date: "2025-09-22",
+        time: "14:53"
+      },
+      {
+        commenter_name: "Sandy",
+        comment_text: "Malmö stöttar inte folkmord.",
+        date: "2025-09-22",
+        time: "09:50"
+      },
+      {
+        commenter_name: "Rebecka",
+        comment_text: "För medmänsklighet, fred och mänskliga rättigheter. Emot lidande, krig, etnisk rensning och folkmord!",
+        date: "2025-09-21",
+        time: "18:08"
+      },
+      {
+        commenter_name: "Annemari Salomonsson",
+        comment_text: "Inga skattepengar borde någonsin få gå till företag som bryter mot mänskliga rättigheter och internationell rätt.",
+        date: "2025-09-21",
+        time: "13:41"
+      },
+      {
+        commenter_name: "Maja Zackari",
+        comment_text: "Min stad ska inte handla av de som bidrar till barns död.",
+        date: "2025-09-20",
+        time: "16:39"
+      },
+      {
+        commenter_name: "Abida",
+        comment_text: "Skäms Malmö Stad. ",
+        date: "2025-09-20",
+        time: "16:25"
+      },
+      {
+        commenter_name: "Smail",
+        comment_text: "VI VILL INTE STÖTTA FÖRETAG SOM STÖTTAR FOLKMORD NU FÅR DE RÄCKA",
+        date: "2025-09-20",
+        time: "16:23"
+      },
+      {
+        commenter_name: "Malak ",
+        comment_text: "Malmö för allas lika rätt ",
+        date: "2025-09-20",
+        time: "11:53"
+      },
+      {
+        commenter_name: "Annika",
+        comment_text: "Bra och viktigt initiativ. Hoppas att granskning av föreningar som förskingrar skattemedel under täckmantel och skor sig själva också upptäcks och krävs på återbetalning av felaktigt nyttjande.",
+        date: "2025-09-19",
+        time: "13:55"
+      },
+      {
+        commenter_name: "Johan",
+        comment_text: "Jag värnar om att mina skattepengar används på ett schysst sätt. ",
+        date: "2025-09-15",
+        time: "14:45"
+      },
+      {
+        commenter_name: "Amanda Cataldi",
+        comment_text: "Mina pengar ska inte gå till folkmord och apartheid!!",
+        date: "2025-09-14",
+        time: "07:57"
+      },
+      {
+        commenter_name: "Camilo Vargas",
+        comment_text: "Nej till folkmord!",
+        date: "2025-09-13",
+        time: "17:53"
+      },
+      {
+        commenter_name: "Yénika CM",
+        comment_text: "Hej Malmö, snälla lev upp till dina ideal om mänskliga rättigheter och mångfald! Man kan inte säga på ett sätt och göra på ett annat!! ",
+        date: "2025-09-11",
+        time: "21:55"
+      },
+      {
+        commenter_name: "Albin",
+        comment_text: "Bra intiativ. Borde vara självklart att inte upphandla med företag som i andra eller tredje hand befattar sig med parter som ej följer policyn om mänskliga rättigheter",
+        date: "2025-09-11",
+        time: "12:15"
+      },
+      {
+        commenter_name: "Kajsa",
+        comment_text: "Stöd inte förtryck och folkmord",
+        date: "2025-09-10",
+        time: "19:14"
+      },
+      {
+        commenter_name: "Evelina ",
+        comment_text: "Inga pengar till brott mot mänskligheten!",
+        date: "2025-09-10",
+        time: "18:41"
+      },
+      {
+        commenter_name: "Sabina ",
+        comment_text: "Mina pengar ska inte användas för att supporta apartheid stat och folkmord!",
+        date: "2025-09-10",
+        time: "14:40"
+      },
+      {
+        commenter_name: "Gia",
+        comment_text: "Stöd inte folkmord!",
+        date: "2025-09-10",
+        time: "14:11"
+      },
+      {
+        commenter_name: "Truls",
+        comment_text: "Nej till att skattepengar går till företag som skor sig på folkmord. ",
+        date: "2025-09-10",
+        time: "13:11"
+      },
+      {
+        commenter_name: "Jerker",
+        comment_text: "Ingen apartheid, etnisk rensning, inget folkmord för mina skattepengar.",
+        date: "2025-09-10",
+        time: "12:59"
+      },
+      {
+        commenter_name: "Timea",
+        comment_text: "Nej till sponsring av folkmord",
+        date: "2025-09-09",
+        time: "06:18"
+      },
+      {
+        commenter_name: "Ludvig H",
+        comment_text: "Malmö för allas lika rätt i världen",
+        date: "2025-09-08",
+        time: "20:11"
+      },
+      {
+        commenter_name: "Ana-Maria Sabio",
+        comment_text: "Stöd inte folkmord med mina pengar!",
+        date: "2025-09-08",
+        time: "13:30"
+      },
+      {
+        commenter_name: "Anna-Maria Enber",
+        comment_text: "Tänk att människor som varit utsatta, utsätter andra. Fy skäms! Stoppa våldet mot våra medmänniskor ",
+        date: "2025-09-07",
+        time: "08:40"
+      },
+      {
+        commenter_name: "Olof",
+        comment_text: "Borde avbryta samtliga pågående uppdrag med leverantörer som inte uppfyller dessa krav. ",
+        date: "2025-09-07",
+        time: "20:18"
+      },
+      {
+        commenter_name: "Märta",
+        comment_text: "Malmö stad ska inte stötta folkmord",
+        date: "2025-09-07",
+        time: "19:17"
+      },
+      {
+        commenter_name: "S.M",
+        comment_text: "Inga pengar till förtryck!! ",
+        date: "2025-09-07",
+        time: "19:12"
+      },
+      {
+        commenter_name: "Lotta ",
+        comment_text: "Tillsammans gör vi det möjligt ",
+        date: "2025-09-07",
+        time: "18:32"
+      },
+      {
+        commenter_name: "Samaran ",
+        comment_text: "No money for baby killers",
+        date: "2025-09-07",
+        time: "17:59"
+      },
+      {
+        commenter_name: "Nova",
+        comment_text: "Inte en krona till människorättsbrott ",
+        date: "2025-09-07",
+        time: "17:17"
+      },
+      {
+        commenter_name: "A7d",
+        comment_text: "Jqg ger min röst så klart för bojkot",
+        date: "2025-09-07",
         time: "16:45"
       },
       {
-        commenter_name: "Marcus Thompson",
-        comment_text: "Great value for money. The attention to detail is impressive and it works exactly as advertised.",
-        date: "2024-01-22",
-        time: "11:20"
+        commenter_name: "Besarta",
+        comment_text: "Inga pengar till ockupationsstaten!!",
+        date: "2025-09-07",
+        time: "15:12"
       },
       {
-        commenter_name: "Olivia Santos",
-        comment_text: "Simply amazing! This has made my daily routine so much easier. Thank you for creating such a wonderful product!",
-        date: "2024-01-25",
+        commenter_name: "Momme",
+        comment_text: "Håller med ",
+        date: "2025-09-07",
+        time: "15:01"
+      },
+      {
+        commenter_name: "Henrik",
+        comment_text: "Bra initiativ!",
+        date: "2025-09-07",
+        time: "14:33"
+      },
+      {
+        commenter_name: "Evelina",
+        comment_text: "Inge mer pengar till terror staten",
+        date: "2025-09-07",
         time: "13:50"
-      }
-    ];
+      },
+      {
+        commenter_name: "Haneen",
+        comment_text: "Stoppa folkmordet ",
+        date: "2025-09-07",
+        time: "13:42"
+      },
+      {
+        commenter_name: "Jihad ",
+        comment_text: "Stoppa all varor från blodet",
+        date: "2025-09-07",
+        time: "13:35"
+      },
+      {
+        commenter_name: "Mika",
+        comment_text: "OBS att bekräftelsemejlet kan hamna i skräppost! Flytta från skräpposten så ska länken funka.",
+        date: "2025-09-07",
+        time: "13:33"
+      },
+      {
+        commenter_name: "Israa hasan",
+        comment_text: "Stoppa folkmord ",
+        date: "2025-09-07",
+        time: "13:22"
+      },
+      {
+        commenter_name: "Solina",
+        comment_text: "Bojkott!",
+        date: "2025-09-07",
+        time: "13:14"
+      },
+      {
+        commenter_name: "Ahmad ",
+        comment_text: "Bojkotta",
+        date: "2025-09-07",
+        time: "13:06"
+      },
+      {
+        commenter_name: "Magnus O",
+        comment_text: "Borde vara en självklarhet!",
+        date: "2025-09-07",
+        time: "09:54"
+      },
+      {
+        commenter_name: "Maya",
+        comment_text: "!",
+        date: "2025-09-07",
+        time: "00:48"
+      },
+      {
+        commenter_name: "Yahya",
+        comment_text: "Håller starkt med",
+        date: "2025-09-06",
+        time: "16:18"
+      },
+      {
+        commenter_name: "My ",
+        comment_text: "Håller med ",
+        date: "2025-09-06",
+        time: "15:37"
+      },
+      {
+        commenter_name: "Rasmy",
+        comment_text: "Inget handel med folkmördaren",
+        date: "2025-09-06",
+        time: "15:27"
+      },
+      {
+        commenter_name: "Puh",
+        comment_text: "Rösta för rättvisa!! ",
+        date: "2025-09-06",
+        time: "15:20"
+      },
+      {
+        commenter_name: "molly mccormick",
+        comment_text: "❤️",
+        date: "2025-09-06",
+        time: "13:14"
+      },
+      {
+        commenter_name: "Sigrid ",
+        comment_text: "Mina penger ska inte gå till krigsbrott!",
+        date: "2025-09-06",
+        time: "12:25"
+      },
+      {
+        commenter_name: "Martin Cornell ",
+        comment_text: "Jag håller med ",
+        date: "2025-09-06",
+        time: "11:23"
+      },
+      {
+        commenter_name: "gustaf",
+        comment_text: "Verkligen ett förslag som representerar våra invånare!",
+        date: "2025-09-06",
+        time: "10:34"
+      },
+      {
+        commenter_name: "Magnus ",
+        comment_text: "Jag håller med",
+        date: "2025-09-04",
+        time: "17:24"
+      },
+      {
+        commenter_name: "Sarah Alawi ",
+        comment_text: "Inga pengar till förtryck ",
+        date: "2025-08-31",
+        time: "13:06"
+      },
+      {
+        commenter_name: "Miri",
+        comment_text: "Anger at the system, love for the comrades!",
+        date: "2025-08-30",
+        time: "14:21"
+      },
+      {
+        commenter_name: "Bjørk",
+        comment_text: "Rättvisa Malmö",
+        date: "2025-08-30",
+        time: "13:56"
+      },
+      {
+        commenter_name: "Charlotte ",
+        comment_text: "Moraliskt och etiskt rätt. Bra initiativ!",
+        date: "2025-08-23",
+        time: "18:21"
+      },
+      {
+        commenter_name: "Fida",
+        comment_text: "Malmö stad måste bojkotta staten som begår folkmord mot barn och civila",
+        date: "2025-08-17",
+        time: "11:43"
+      },
+      {
+        commenter_name: "Ali",
+        comment_text: "Alla barn har rätt till liv",
+        date: "2025-08-17",
+        time: "11:40"
+      },
+      {
+        commenter_name: "Ali",
+        comment_text: "Gazas barn har rätt till liv",
+        date: "2025-08-17",
+        time: "11:39"
+      },
+      {
+        commenter_name: "Kristina",
+        comment_text: "Allt för varaktig fred!",
+        date: "2025-08-16",
+        time: "10:32"
+      },
+      {
+        commenter_name: "Kamel ahmad ali",
+        comment_text: "Inte en krona till människorättsbrott",
+        date: "2025-08-16",
+        time: "10:24"
+      },
+      {
+        commenter_name: "Anna",
+        comment_text: "Självklart ska Malmö stad inte stötta en stat som utför planerat folkmord. ",
+        date: "2025-08-11",
+        time: "21:39"
+      },
+      {
+        commenter_name: "Monica ",
+        comment_text: "Alla har rätt till liv.",
+        date: "2025-08-11",
+        time: "09:27"
+      },
+      {
+        commenter_name: "Ayanle osman",
+        comment_text: "Varje en av oss har ansvar att ta. Alla liv är lika värda. nej till folkmord. ",
+        date: "2025-08-10",
+        time: "15:21"
+      },
+      {
+        commenter_name: "Marta Lucia ",
+        comment_text: "Stopa folkmord!",
+        date: "2025-08-10",
+        time: "13:28"
+      },
+      {
+        commenter_name: "Somaya",
+        comment_text: "Ja ",
+        date: "2025-08-10",
+        time: "12:36"
+      },
+      {
+        commenter_name: "Anas",
+        comment_text: "Tack för insatsen",
+        date: "2025-08-09",
+        time: "18:28"
+      },
+      {
+        commenter_name: "Riadh",
+        comment_text: "Tack för allt ni gör!",
+        date: "2025-08-09",
+        time: "18:27"
+      },
+      {
+        commenter_name: "Gemila",
+        comment_text: "Helt självklart att vi inte ska sponsra folkmord med våra skattepengar. Det är inte i linje med Malmös värderingar eller vision. ",
+        date: "2025-08-09",
+        time: "10:52"
+      },
+      {
+        commenter_name: "Sandro",
+        comment_text: "Nej till folkmord och alla sorters förtryck.",
+        date: "2025-08-09",
+        time: "10:37"
+      },
+      {
+        commenter_name: "Madeleine ",
+        comment_text: "För fred & rättvisa",
+        date: "2025-08-09",
+        time: "05:34"
+      },
+      {
+        commenter_name: "Rebecca",
+        comment_text: "Detta initiativ behöver tas på största allvar av Malmös politiker. Malmö stad är moraliskt och juridiskt ansvariga för att våra skattepengar inte ska gå till att stötta grova folkrättsbrott. Det har de inte kunnat leverera. Förändring krävs, igår! ",
+        date: "2025-08-08",
+        time: "16:28"
+      },
+      {
+        commenter_name: "Stefan Lindkvist",
+        comment_text: "Nej till folkmord! Alla människor ska ha lika värde! Det är viktigt att kommuner analyserar till exempel mänskliga rättigheter vid upphandlingar! ",
+        date: "2025-08-07",
+        time: "18:58"
+      },
+      {
+        commenter_name: "Marita Koskinen",
+        comment_text: "Malmö stad ska inte sponsra folkmord. Malmö stad ska stå upp för mänskliga rättigheter. Malmö stad ska stå upp för ALLA människors lika värde.",
+        date: "2025-08-07",
+        time: "17:45"
+      },
+      {
+        commenter_name: "Lylia",
+        comment_text: "Malmö har ansvar att tar.",
+        date: "2025-07-16",
+        time: "18:46"
+      },
+      {
+        commenter_name: "Fernando Racimo",
+        comment_text: "Malmö måste sluta stödja folkmord!",
+        date: "2025-08-03",
+        time: "13:18"
+      },
+      {
+        commenter_name: "Alessandro Virtuoso Haraldsen",
+        comment_text: "Jättebra initiativ ",
+        date: "2025-07-29",
+        time: "22:48"
+      },
+      {
+        commenter_name: "Peter",
+        comment_text: "Malmö stad skall inte stödja krigsbrott och diktatur",
+        date: "2025-07-28",
+        time: "23:45"
+      },
+      {
+        commenter_name: "Isabel C. de Gonzalez",
+        comment_text: "Inte en krona till människorättsbrott",
+        date: "2025-07-28",
+        time: "23:30"
+      },
+      {
+        commenter_name: "Pål",
+        comment_text: "Inga skattepengar till människorättsbrott!",
+        date: "2025-07-28",
+        time: "20:33"
+      },
+      {
+        commenter_name: "Mohammad",
+        comment_text: "Malmö stad ska stå upp för mänskliga rättigheter.",
+        date: "2025-07-27",
+        time: "20:36"
+      },
+      {
+        commenter_name: "Mohammad",
+        comment_text: "Malmö stad ska stå upp för mänskliga rättigheter.",
+        date: "2025-07-27",
+        time: "20:34"
+      },
+      {
+        commenter_name: "Caroline ",
+        comment_text: "Jag som anställd vill kunna känna mig trygg med att min arbetsgivare, Malmö stad, står för en rättighetsbaserad etisk upphandlingspolicy.",
+        date: "2025-07-27",
+        time: "13:23"
+      },
+      {
+        commenter_name: "Jenny",
+        comment_text: "Jag välkomnar detta initiativ så mycket! Bor ",
+        date: "2025-07-27",
+        time: "10:52"
+      },
+      {
+        commenter_name: "Helene ",
+        comment_text: "Bra! ",
+        date: "2025-07-27",
+        time: "08:45"
+      },
+      {
+        commenter_name: "Elisabet Apelmo",
+        comment_text: "Jag stödjer initiativet Inte en krona till människorättsbrott - Rättvisa Malmö. ",
+        date: "2025-07-26",
+        time: "21:30"
+      },
+      {
+        commenter_name: "Pau",
+        comment_text: "Våra pengar ska inte gå till krigsbrott",
+        date: "2025-07-26",
+        time: "18:33"
+      },
+      {
+        commenter_name: "Kristoffer",
+        comment_text: "Upphandling är ett viktigt verktyg, inte minst när det gäller de stora summor av skattepengar som Malmö stad lägger på att upphandla olika företag. Därför tycker jag att det är viktigt att tydligt markera att aldrig acceptera att våra skattepengar bidrar till förtryck, orättvisa, klimatkris eller brott mot mänskliga rättigheter.",
+        date: "2025-07-21",
+        time: "16:25"
+      },
+      {
+        commenter_name: "Sigrid",
+        comment_text: "Det minsta kommunen kan göra är att inte handla med länder och företag som begår folkrättsbrott!",
+        date: "2025-07-21",
+        time: "10:23"
+      },
+      {
+        commenter_name: "Kittie Levin ",
+        comment_text: "Malmö Stad behöver en etisk upphandlingspolicy.",
+        date: "2025-07-20",
+        time: "19:21"
+      },
+      {
+        commenter_name: "Gunilla ",
+        comment_text: "Jag vill inte att mina pengar ska gå till krigsbrott",
+        date: "2025-07-20",
+        time: "17:14"
+      },
+      {
+        commenter_name: "Gun-Britt Nyman",
+        comment_text: "Stå upp för folkrätten",
+        date: "2025-07-20",
+        time: "14:45"
+      },
+      {
+        commenter_name: "Stefanija",
+        comment_text: "Malmö är en för bra stad för att stödja folkmord på något som helst sätt ",
+        date: "2025-07-19",
+        time: "23:06"
+      },
+      {
+        commenter_name: "Isak",
+        comment_text: "Stå upp!",
+        date: "2025-07-18",
+        time: "10:48"
+      },
+      {
+        commenter_name: "nadin",
+        comment_text: "Mina pengar ska inte gå till att skada människor ! ",
+        date: "2025-07-17",
+        time: "22:26"
+      },
+      {
+        commenter_name: "Saskia Gullstrand ",
+        comment_text: "Malmö säger nej till folkmord! Mänskliga rättigheter gäller alla överallt. ",
+        date: "2025-07-17",
+        time: "17:37"
+      },
+      {
+        commenter_name: "Jacqueline Hellmann",
+        comment_text: "Strålande initiativ! ",
+        date: "2025-07-17",
+        time: "16:44"
+      },
+      {
+        commenter_name: "Ayesha ",
+        comment_text: "Det är dags att Malmö stad en riktig och mänsklig ställning. ",
+        date: "2025-07-17",
+        time: "08:56"
+      },
+      {
+        commenter_name: "marc",
+        comment_text: "inga krigsbrott tillåtna",
+        date: "2025-07-17",
+        time: "08:30"
+      },
+      {
+        commenter_name: "René ",
+        comment_text: "Inga pengar till krig.",
+        date: "2025-07-17",
+        time: "07:41"
+      },
+      {
+        commenter_name: "Azra",
+        comment_text: " pengarna ska inte gå till krigsbrott",
+        date: "2025-07-17",
+        time: "07:01"
+      },
+      {
+        commenter_name: "Azra",
+        comment_text: "Nej",
+        date: "2025-07-17",
+        time: "07:00"
+      },
+      {
+        commenter_name: "Ali",
+        comment_text: "Malmö stad, agera!",
+        date: "2025-07-16",
+        time: "22:47"
+      },
+      {
+        commenter_name: "Tom",
+        comment_text: "Inga intäkter från krigsbrott! ",
+        date: "2025-07-16",
+        time: "20:17"
+      },
+      {
+        commenter_name: "Jeb",
+        comment_text: "Perfekt läge att göra rätt!",
+        date: "2025-07-16",
+        time: "16:45"
+      },
+      {
+        commenter_name: "Anela",
+        comment_text: "Vår stad ska inte finansiera människorättsbrott!",
+        date: "2025-07-16",
+        time: "13:10"
+      },
+      {
+        commenter_name: "Anna",
+        comment_text: "Jag vill inte att min hemstad ska stödja krigsbrott. ",
+        date: "2025-07-16",
+        time: "12:03"
+      },
+      {
+        commenter_name: "Isis",
+        comment_text: "Mänskliga rättigheter gäller alla och våra skattemedel ska inte finansiera brott mot dessa!",
+        date: "2025-07-15",
+        time: "22:32"
+      },
+      {
+        commenter_name: "Julia",
+        comment_text: "Jag kräver att Malmö stad, den kommun jag bor och arbetar inom avslutar samtlig handel och involvering med företag som stödjer krigsbrott. ",
+        date: "2025-07-15",
+        time: "20:50"
+      },
+      {
+        commenter_name: "Zetma",
+        comment_text: "Stå upp för mänskliga rättigheter Malmö! ",
+        date: "2025-07-15",
+        time: "16:24"
+      },
+      {
+        commenter_name: "Oskar",
+        comment_text: "Bra initiativ. Hade dock uppskattat en mer utförlig lista över vilka verksamheter som detta berör och gärna en länk till vidare läsning om varför/hur dessa verksamheter är oetiska. ",
+        date: "2025-07-15",
+        time: "14:55"
+      },
+      {
+        commenter_name: "Kajsa ",
+        comment_text: "Malmö stad ska stå upp för folkrätten och säga Nej till krigsbrott. ",
+        date: "2025-07-15",
+        time: "13:41"
+      },
+      {
+        commenter_name: "Mina Dadashzadeh",
+        comment_text: "Malmö stad, ni kan bättre än detta!! ",
+        date: "2025-07-15",
+        time: "13:14"
+      },
+      {
+        commenter_name: "Jakob",
+        comment_text: "Malmö ska stå upp för mänskliga rättigheter och internationell rätt.",
+        date: "2025-07-15",
+        time: "09:40"
+      },
+      {
+        commenter_name: "Sandra",
+        comment_text: "Malmö ska inte (!) bidra till krigsbrott ",
+        date: "2025-07-15",
+        time: "08:26"
+      },
+      {
+        commenter_name: "Martha",
+        comment_text: "Våra skattepengar ska inte gå till krigsbrott. ",
+        date: "2025-07-15",
+        time: "08:06"
+      },
+      {
+        commenter_name: "Sofie",
+        comment_text: "Rättvisa Malmö! ",
+        date: "2025-07-15",
+        time: "07:12"
+      },
+      {
+        commenter_name: "Wictoria Larsson ",
+        comment_text: "Stödjer detta intiativ! ",
+        date: "2025-07-14",
+        time: "18:54"
+      },
+      {
+        commenter_name: "Jknut",
+        comment_text: "Mina pengar ska ej gå till krigsbrott",
+        date: "2025-07-14",
+        time: "14:53"
+      },
+      {
+        commenter_name: "Anela",
+        comment_text: "Jag stödjer initiativet och jag förstår inte varför en stad som Malmö skulle hålla på att stödja krigsbrott speciellt när en stor del av befolkningen och skattebetalarna är människor från krigsdrabbade länder. Vi skryter om att Malmö är så vackert på grund av den mångkulturella känslan, men hur mycket står Malmö stad för dess mångkulturella befolkning?",
+        date: "2025-07-14",
+        time: "12:44"
+      },
+      {
+        commenter_name: "Maya",
+        comment_text: "Viktigt ",
+        date: "2025-07-14",
+        time: "12:23"
+      },
+      {
+        commenter_name: "Nina, Östra Sorgenfri",
+        comment_text: "Självklart ska vi inte stödja krigsbrott!",
+        date: "2025-07-13",
+        time: "22:13"
+      },
+      {
+        commenter_name: "Amanda ",
+        comment_text: "Mycket bra initiativ, står bakom allt som nämnts. Våra pengar ska inte gå till krigsbrott!! ",
+        date: "2025-07-13",
+        time: "18:19"
+      },
+      {
+        commenter_name: "Samia Aloui",
+        comment_text: "Malmö stad ska stå upp för mänskliga rättigheter.",
+        date: "2025-07-12",
+        time: "17:35"
+      },
+      {
+        commenter_name: "Manal",
+        comment_text: "Mina pengar ska inte gå till krigsbrott ",
+        date: "2025-07-13",
+        time: "15:12"
+      },
+      {
+        commenter_name: "Annemari",
+        comment_text: "En rättvis värld börjar här, vi måste ta ansvar för vilka vi samarbetar med och vart våra skattemedel går!",
+        date: "2025-07-13",
+        time: "14:17"
+      },
+      {
+        commenter_name: "Abodi",
+        comment_text: "Jag vill att Malmö ska säga nej till folkmord ",
+        date: "2025-07-13",
+        time: "14:09"
+      },
+      {
+        commenter_name: "Basma el saleh",
+        comment_text: "Jag vill inte mina skatta pengar gå till krigsbrott",
+        date: "2025-07-13",
+        time: "14:01"
+      },
+      {
+        commenter_name: "Basma el saleh",
+        comment_text: "Mina pinger ska inte gå tillkriksbrott",
+        date: "2025-07-13",
+        time: "13:59"
+      },
+      {
+        commenter_name: "Safa Abualhayja ",
+        comment_text: "Mina pengarna ska inte gå till krigsbrott!!  ",
+        date: "2025-07-13",
+        time: "13:56"
+      },
+      {
+        commenter_name: "Pontus Joakim ",
+        comment_text: "Jättebra initiativ!",
+        date: "2025-07-13",
+        time: "13:52"
+      },
+      {
+        commenter_name: "Ann",
+        comment_text: "Stå upp för folkrätten! ",
+        date: "2025-07-13",
+        time: "13:52"
+      },
+      {
+        commenter_name: "John Rosenblad",
+        comment_text: "jag stödjer ovanstående ",
+        date: "2025-07-13",
+        time: "13:49"
+      },
+      {
+        commenter_name: "Ragna",
+        comment_text: "För att mänskliga rättigheter ska gälla för alla människor! ",
+        date: "2025-07-13",
+        time: "13:46"
+      },
+      {
+        commenter_name: "Mohammed Abdel Hussein",
+        comment_text: "Företag som involverade i kränkningar av mänskliga rättigheter måste bojkottas",
+        date: "2025-07-13",
+        time: "13:19"
+      },
+      {
+        commenter_name: "Anne",
+        comment_text: "Malmö måste ta avstånd ",
+        date: "2025-07-13",
+        time: "12:58"
+      },
+      {
+        commenter_name: "Adam aldamie",
+        comment_text: "Jag vill bo i en stad som kompromisslöst sätter sig emot människorättsbrott- alltid, utan undantag.",
+        date: "2025-07-13",
+        time: "12:44"
+      },
+      {
+        commenter_name: "Maria",
+        comment_text: "Mycket bra förslag!",
+        date: "2025-07-13",
+        time: "10:09"
+      },
+      {
+        commenter_name: "Gunilla",
+        comment_text: "Våra skattepengar ska inte gå till krigsbrottslingar eller till andra som bryter mot internationella lagar och inte respekterar mänskliga rättigheter,",
+        date: "2025-07-13",
+        time: "06:21"
+      },
+      {
+        commenter_name: "Pablo",
+        comment_text: "Vill inte betala för brott mot männskligheten.",
+        date: "2025-07-12",
+        time: "14:32"
+      },
+      {
+        commenter_name: "Miranda Fingal",
+        comment_text: "Inte en dag för tidigt.",
+        date: "2025-07-12",
+        time: "12:51"
+      },
+      {
+        commenter_name: "Darius",
+        comment_text: "Ett dokument med generella riktlinjer för hur gemensamma resurser (våra skattepengar) ska spenderas tycker jag är en självklarhet. Det här är bara ett sätt att hålla tjänstemän ansvariga att följa de lagar och regler, samt de etiska riktlinjer, som vi har kommit överens om. Väntar med intresse på kommunens beslut",
+        date: "2025-07-12",
+        time: "12:18"
+      },
+      {
+        commenter_name: "Steff",
+        comment_text: "Malmö <3",
+        date: "2025-07-12",
+        time: "11:39"
+      },
+      {
+        commenter_name: "Khaled M",
+        comment_text: "Malmö måste följa lagen och inte bidra till tyranni, olagliga verksamhet och brott mot mänskligheten. Så enkelt är det. Inga av mina skattepengar ska gå till orättvisor. ",
+        date: "2025-07-11",
+        time: "16:33"
+      },
+      {
+        commenter_name: "Jonathan ",
+        comment_text: "För ansvar med våra gemensamma resurser!",
+        date: "2025-07-11",
+        time: "15:54"
+      },
+      {
+        commenter_name: "Lan",
+        comment_text: "Viktigt initiativ ",
+        date: "2025-07-11",
+        time: "09:55"
+      },
+      {
+        commenter_name: "Jon",
+        comment_text: "Vi vill inte betala för brott mot mänskligheten!",
+        date: "2025-07-11",
+        time: "08:58"
+      },
+      {
+        commenter_name: "Sanne ",
+        comment_text: "En etisk upphandlingspolicy är en förutsättning för Malmö stads trovärdiga rättighetsaebete, att stödja människorättskränkningar är inte ett seriöst rättighetsarbete. ",
+        date: "2025-07-11",
+        time: "08:13"
+      },
+      {
+        commenter_name: "Lejla ",
+        comment_text: "Barn förtjänar att leva , oavsett vilket hudfärg eller religion dom har ! ",
+        date: "2025-07-11",
+        time: "04:30"
+      },
+      {
+        commenter_name: "Hanna",
+        comment_text: "Det är både oetiskt och direkt felaktigt att säga sig stå för mänskliga rättigheter samtidigt som man arbetar med företag som inte gör det. Därigenom blir man inte bättre än det av företagen som ignorerar och bryter mot rättigheterna mest. Inte i min stad!",
+        date: "2025-07-11",
+        time: "02:15"
+      },
+      {
+        commenter_name: "Fiona",
+        comment_text: "Inga skattepengar till krigsbrott och stater som bryter mot internationella lagen",
+        date: "2025-07-11",
+        time: "00:38"
+      },
+      {
+        commenter_name: "Clara",
+        comment_text: "Håller med",
+        date: "2025-07-10",
+        time: "20:25"
+      },
+      {
+        commenter_name: "Itza",
+        comment_text: "Demokrati börjar aldrig med brott mot mänskliga rättigheter. ",
+        date: "2025-07-10",
+        time: "15:36"
+      },
+      {
+        commenter_name: "Mac",
+        comment_text: "Bra initiativ!",
+        date: "2025-07-10",
+        time: "13:30"
+      },
+      {
+        commenter_name: "Lotta",
+        comment_text: "Mina skattepengar ska inte finansiera ett krigsbrott. ",
+        date: "2025-07-10",
+        time: "13:02"
+      },
+      {
+        commenter_name: "Tova",
+        comment_text: "Jag vill bo i en stad som kompromisslöst sätter sig emot människorättsbrott- alltid, utan undantag. ",
+        date: "2025-07-09",
+        time: "13:44"
+      },
+      {
+        commenter_name: "Leia Wolke Wemmert",
+        comment_text: "Mina skattepengar ska inte gå till krigsbrott! ",
+        date: "2025-07-09",
+        time: "13:10"
+      },
+      {
+        commenter_name: "Annica",
+        comment_text: "Detta borde redan finnas, men nu får vi se till att det kommer på plats så snart som möjligt.",
+        date: "2025-07-09",
+        time: "12:39"
+      },
+      {
+        commenter_name: "Izabella",
+        comment_text: "Viktigt initiativ för en mer rättvis värld.",
+        date: "2025-07-09",
+        time: "09:53"
+      },
+      {
+        commenter_name: "Sabina",
+        comment_text: "Ingen handel med stater som bryter mot internationella lagar!",
+        date: "2025-07-09",
+        time: "08:58"
+      },
+      {
+        commenter_name: "Salma Eflall",
+        comment_text: "Jag vill bo på en plats som varken direkt eller indirekt stöder människorättsbrytare – inga rättfärdiganden, inga undantag.",
+        date: "2025-07-08",
+        time: "20:58"
+      },
+    ]).reverse();
 
     let currentCommentIndex = 0;
 
@@ -201,21 +1804,25 @@
       const centerX = container.clientWidth / 2;
       const centerY = container.clientHeight / 2;
 
-      const totalCards = 270;
-      const cardsToReachMaxSpeed = 12;
+      const totalCards = comments.length;
+      const cardsToReachMaxSpeed = 18;
       const cardsToReachMaxHeight = 12;
       const maxOffsetY = container.clientHeight * 0.35; // max vertical chaos
       const maxRotation = 30; // degrees
-      const baseDelay = 600; // first card(s) slow
+      const baseDelay = 800; // first card(s) slow
       const minDelay = 40;    // fastest final speed
 
       const cards = []; // keep track of cards for fading
+      
+      const counter = document.getElementById('commentCounter');
 
-      for (let i = 0; i < totalCards; i++) {
+      for (let i = 0; i < totalCards - 1; i++) {
         // --------- Crescendo delay ----------
         let delay;
-        if (i < 2) {
-          delay = baseDelay;
+        if (i == 1) {
+          delay = baseDelay + 400;
+        } else if (i == 2) {
+          delay = baseDelay + 200;
         } else {
           const t = (i - 2) / (cardsToReachMaxSpeed - 3);
           delay = Math.max(baseDelay - (baseDelay - minDelay) * (t * t), minDelay);
@@ -240,6 +1847,12 @@
 
         container.appendChild(card);
         cards.push(card);
+
+
+        if (i === 0) counter.style.display = 'flex';
+        
+        // Update counter
+        counter.textContent = `${i + 1}`;
       }
 
       // --------- Show last comment perfectly centered ----------
@@ -259,7 +1872,7 @@
       });
 
       // Hold last card a bit longer, then fade
-      await sleep(2000);
+      await sleep(5000);
       lastCard.style.transition = 'opacity 1s ease-out';
       lastCard.style.opacity = 0;
 
@@ -268,6 +1881,7 @@
 
       // Restart cascade
       await sleep(500);
+      currentCommentIndex = 0;
       startCascadeAnimation();
     }
 
